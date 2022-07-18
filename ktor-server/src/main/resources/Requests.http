@@ -1,0 +1,159 @@
+GET http://localhost:8080/username?v=test-u5
+
+###
+POST http://localhost:8080/signup
+Content-Type: application/json
+
+{
+  "username": "peter_p",
+  "password": "123456",
+  "name": "Peter Parker",
+  "age": 19,
+  "gender": 0
+}
+
+###
+POST http://localhost:8080/update/62a9d54726010c187afde65b
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJyb29tbWF0ZXMiLCJpc3MiOiJodHRwOi8vMC4wLjAuMDo4MDgwIiwiZXhwIjoxNjU1Mjk5MTk2LCJ1c2VySWQiOiI2MmE5ZDU0NzI2MDEwYzE4N2FmZGU2NWIifQ.A-T8swGqmO03pbP003jTCKJ34z6rBs6GoPnVlXmg8C0
+
+--WebAppBoundary
+Content-Type: application/json
+
+{
+  "name": "Peter Parker",
+  "age": 19,
+  "gender": 0,
+  "display_budget": 390,
+  "min_budget": 300,
+  "max_budget": 480,
+  "city": {
+    "name": "Sofia",
+    "nbh": "Studentski"
+  },
+  "has_room": false,
+  "interested_in": [
+    1
+  ],
+  "age_filter_max": 18,
+  "age_filter_min": 29,
+  "bio": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+  "job": {
+    "company": {
+        "visible": true,
+        "name": "Avengers"
+    },
+    "title": {
+      "visible": true,
+      "name": "Spider-Man"
+    }
+  },
+  "school": {
+    "visible": true,
+    "name": "TU-Sofia"
+  },
+  "selected_interests": [
+    {
+      "name": "Gaming"
+    },
+    {
+      "name": "Cooking"
+    },
+    {
+      "name": "Wall Climbing"
+    }
+  ]
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="photo1"; filename="p1.jpg"
+Content-Type: image/jpeg
+
+< C:\Users\Zeus\Desktop\roommates\p1.jpg
+
+--WebAppBoundary
+Content-Disposition: form-data; name="photo2"; filename="p2.jpg"
+Content-Type: image/jpeg
+
+< C:\Users\Zeus\Desktop\roommates\p2.jpg
+
+--WebAppBoundary
+Content-Disposition: form-data; name="photo3"; filename="p3.jpg"
+Content-Type: image/jpeg
+
+< C:\Users\Zeus\Desktop\roommates\p3.jpg
+
+### andrea login
+POST http://localhost:8080/login?client_id=1234
+Content-Type: application/json
+
+{
+  "username": "andrea_cooper",
+  "password": "123456"
+}
+
+> {%
+    client.global.set("auth_token", response.body.token);
+%}
+
+###
+
+POST http://localhost:8080/login?client_id=1234
+Content-Type: application/json
+
+{
+  "username": "nixon_rodriguez",
+  "password": "123456"
+}
+
+> {%
+    client.global.set("auth_token", response.body.token);
+%}
+
+###
+GET http://localhost:8080/matches/12345fd352/messages?count=10
+#Authorization: Bearer {{auth_token}} eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJyb29tbWF0ZXMiLCJpc3MiOiJodHRwOi8vMC4wLjAuMDo4MDgwIiwiZXhwIjoxNjU0ODQ5Nzg1LCJ1c2VySWQiOiI2MjlkYjRmOTA2ZTYzNzZmNTBkOGRjYWMifQ.Cpu3_zU4JGrrxHRvjT7wHDbJp8BvywhIqJryOEMQlM4
+
+###
+GET http://localhost:8080/init_db
+
+### suggestions
+GET http://localhost:8080/suggestions?page=1
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJyb29tbWF0ZXMiLCJpc3MiOiJodHRwOi8vMC4wLjAuMDo4MDgwIiwiZXhwIjoxNjU1Mjk4MDI3LCJ1c2VySWQiOiI2MmE5Y2Q1MmUzMjk1NzA5NWRhNTNhMjcifQ._3j3QNArYxQ0b7L5ZP_dFzo62dr6L3AqwPhVW308fww
+
+### andrea id
+GET http://localhost:8080/like/629db4f906e6376f50d8dcac?client_id=1234
+
+
+### nikson id
+GET http://localhost:8080/like/629db4fa06e6376f50d8de5d?client_id=1234
+
+### Tommy Carter
+GET http://localhost:8080/pass/629db4f906e6376f50d8dd1d?client_id=1234
+
+### message post
+POST http://localhost:8080/matches/test_message?id=629db4f906e6376f50d8dcac629db4fa06e6376f50d8de5d
+Content-Type: application/json
+
+{
+  "type": "TextMessage",
+  "_id": "629db4f906e6378f50d8dcac",
+  "match_id": "629db4f906e6376f50d8dcac629db4fa06e6376f50d8de5d",
+  "timestamp": 1654547523949,
+  "to": "629db4fa06e6376f50d8de5d",
+  "from": "629db4f906e6376f50d8dcac",
+  "content": "very good"
+}
+
+###
+#{
+#  "type": "TextMessage",
+#  "_id": "629db4f906e6376f50d8dcac",
+#  "match_id": "629db4f906e6376f50d8dcac629db4fa06e6376f50d8de5d",
+#  "timestamp": 1654547523649,
+#  "to": "629db4f906e6376f50d8dcac",
+#  "from": "629db4fa06e6376f50d8de5d",
+#  "content": "how are you"
+#}
+
+### get Messages
+GET http://localhost:8080/matches/629db4f906e6376f50d8dcac629db4fa06e6376f50d8de5d/messages?count=3
